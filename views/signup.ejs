@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/loginSignUp.css">
+  <title><%= title %></title>
+</head>
+<body>
+
+  <div class="banner">
+    <img src="/images/lockedLock.svg" alt="Locked Padlock">
+    <span>Members Only</span>
+  </div>
+
+  <form action="" method="post">
+    <p>Signup</p>
+    <div class="form-row">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username">
+    </div>
+    <div class="form-row">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password">
+    </div>
+    <div class="form-row">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" name="confirmPassword" id="confirmPassword">
+    </div>
+    <button type="submit">Sign up</button>
+  </form>
+  <p>
+    Already have an account?<br>
+    <a href="/login">Log in!</a>
+  </p>
+</body>
+</html>
