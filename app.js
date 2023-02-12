@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const initializePassport = require('./middlewares/passport-config.mw');
+const checkAuthenticated = require('./middlewares/checkAuthenticated.mw');
 // Import and configure dotenv
 require('dotenv').config();
 
@@ -51,6 +52,7 @@ app.use((req, res, next) => {
   res.locals.errors = req.session.messages;
   next();
 });
+app.use(checkAuthenticated);
 
 app.use('/', indexRouter);
 
