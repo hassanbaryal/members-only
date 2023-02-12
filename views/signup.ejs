@@ -16,7 +16,7 @@
   </div>
 
   <form action="" method="post">
-    <p>Signup</p>
+    <p>Sign Up</p>
     <div class="form-row">
       <label for="username">Username</label>
       <input type="text" name="username" id="username" value=<%- username === null ? '' : username -%>>
@@ -29,7 +29,7 @@
       <label for="confirmPassword">Confirm Password</label>
       <input type="password" name="confirmPassword" id="confirmPassword">
     </div>
-    <button type="submit">Sign up</button>
+    <button type="submit">Sign Up</button>
     <% if (errors) { %>
       <ul>
         <% for (const error of errors) { %>
