@@ -1,12 +1,13 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
 const mongoose = require('mongoose');
-
+const session = require('express-session');
+const passport = require('passport');
+const initializePassport = require('./middlewares/passport-config.mw');
 // Import and configure dotenv
 require('dotenv').config();
 
@@ -24,6 +25,8 @@ main().catch((err) => {
 
 const app = express();
 
+initializePassport(passport);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -33,8 +36,21 @@ app.use(helmet());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || process.env.DEV_SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  res.locals.errors = req.session.messages;
+  next();
+});
 
 app.use('/', indexRouter);
 
