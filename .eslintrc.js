@@ -14,5 +14,6 @@ module.exports = {
     'func-names': 'off',
     'no-console': 'off',
     'camelcase': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
 };
