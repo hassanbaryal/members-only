@@ -19,7 +19,7 @@
     <p>Signup</p>
     <div class="form-row">
       <label for="username">Username</label>
-      <input type="text" name="username" id="username">
+      <input type="text" name="username" id="username" value=<%- username === null ? '' : username -%>>
     </div>
     <div class="form-row">
       <label for="password">Password</label>
@@ -30,6 +30,14 @@
       <input type="password" name="confirmPassword" id="confirmPassword">
     </div>
     <button type="submit">Sign up</button>
+    <% if (errors) { %>
+      <ul>
+        <% for (const error of errors) { %>
+          <li><%= error.msg %></li>
+        <% } %>
+      </ul>
+      
+    <% } %>
   </form>
   <p>
     Already have an account?<br>
