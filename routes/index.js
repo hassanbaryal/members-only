@@ -1,4 +1,5 @@
 const express = require('express');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -8,12 +9,9 @@ router.get('/', (req, res) => {
 });
 
 // GET login page
-router.get('/login', (req, res) => {
-  res.render('login', { title: 'Members Only' });
-});
+router.get('/login', userController.login_get);
 
-router.get('/signup', (req, res) => {
-  res.render('signup', { title: 'Members Only' });
-});
+// GET sign up page
+router.get('/signup', userController.signup_get);
 
 module.exports = router;
