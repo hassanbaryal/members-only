@@ -1,6 +1,5 @@
 const passport = require('passport');
 const { body, validationResult } = require('express-validator');
-const LocalStrategy = require('passport-local');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 
@@ -12,6 +11,15 @@ exports.login_get = (req, res) => {
     username: req.query.username || null,
   });
 };
+
+// Authenticate user on POST
+exports.login_post = [
+  passport.authenticate('local', {
+    successRedirect: '/homepage',
+    failureRedirect: '/',
+    failureMessage: true,
+  }),
+];
 
 // Display login page on GET
 exports.signup_get = (req, res) => {
@@ -84,3 +92,16 @@ exports.signup_post = [
     });
   },
 ];
+
+// Log user out on GET, redirect to /login
+exports.logout_get = (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    return res.redirect('/login');
+  });
+};
+
+// Display homepage on GET
+exports.homepage_get = (req, res) => {
+  res.render('homepage');
+};
