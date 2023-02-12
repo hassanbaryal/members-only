@@ -64,6 +64,6 @@ body>p {
   text-align: center;
 }
 
-.banner img {
-  stroke: black;
+ul {
+  list-style-position: inside;
 }
