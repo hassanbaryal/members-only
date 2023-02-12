@@ -5,7 +5,6 @@ const User = require('../models/User');
 
 // Display login page on GET
 exports.login_get = (req, res) => {
-  console.log(req.query);
   res.render('login', {
     title: 'Members Only',
     username: req.query.username || null,
