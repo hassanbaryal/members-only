@@ -5,9 +5,23 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const compression = require('compression');
+const mongoose = require('mongoose');
+
+// Import and configure dotenv
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+
+// Connect to DB
+mongoose.set('strictQuery', false);
+const mongoDB = process.env.MONGODB_URI || process.env.DEV_DB_URL;
+async function main() {
+  await mongoose.connect(mongoDB);
+}
+main().catch((err) => {
+  throw new Error(err);
+});
 
 const app = express();
 
