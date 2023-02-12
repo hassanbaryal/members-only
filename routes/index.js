@@ -14,4 +14,7 @@ router.get('/login', userController.login_get);
 // GET sign up page
 router.get('/signup', userController.signup_get);
 
+// POST sign up page
+router.post('/signup', userController.signup_post);
+
 module.exports = router;
