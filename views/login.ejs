@@ -26,6 +26,11 @@
       <input type="password" name="password" id="password">
     </div>
     <button type="submit">Log in</button>
+    <% if (locals.errors && locals.errors.length > 0) { %>
+      <ul>
+        <li><%= locals.errors.pop() %></li>
+      </ul>
+    <% } %>
   </form>
   <p>
     Don't have an account? Too bad! <br>
