@@ -104,6 +104,8 @@ exports.logout_get = (req, res, next) => {
 exports.homepage_get = (req, res) => {
   res.render('homepage', {
     title: 'Members Only Homepage',
+    errors: null,
+    submission: req.body,
   });
 };
 
