@@ -32,6 +32,10 @@ header .banner {
 
 /* BELOW ARE STYLES FOR OTHER VIEWS */
 
+ul {
+  list-style-position: inside;
+}
+
 main {
   width: clamp(280px, 40vw, 700px);
   margin-top: 3rem;
