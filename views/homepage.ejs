@@ -2,18 +2,35 @@
 
 
   <main class="homepage">
-    <form action="/post" method="post">
-      <p>Create a post!</p>
-      <div class="form-row">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
+    <% if (locals.currentUser.member) { %>
+      <form action="/post" method="post">
+        <p>Create a post!</p>
+        <div class="form-row">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title">
+        </div>
+        <div class="form-row">
+          <label for="text">Description/Text</label>
+          <textarea name="text" id="text" cols="30" rows="10" placeholder="Type what you're thinking about!"></textarea>
+        </div>
+        <button type="submit">Submit</button>
+        <% if (errors) { %>
+          <% for (const error of errors) { %>
+            <ul>
+              <li><%= error.msg %></li>
+            </ul>
+          <% } %>
+        <% } %>
+
+        <%  %>
+
+        <%  %>
+      </form>
+    <% } else { %>
+      <div>
+        <p>You are not a member. To create and view the authors of posts and comments, please <a href="/member">become a member!</a></p>
       </div>
-      <div class="form-row">
-        <label for="text">Description/Text</label>
-        <textarea name="text" id="text" cols="30" rows="10" placeholder="Type what you're thinking about!"></textarea>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <% } %>
 
     <div class="posts-container">
       <h1>Posts</h1>
