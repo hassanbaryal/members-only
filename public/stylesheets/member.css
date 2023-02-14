@@ -1,0 +1,22 @@
+.member form input {
+  height: 2rem;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: var(--primary-colour);
+  border-color: var(--secondary-colour);
+}
+
+.member form button {
+  height: 2.5rem;
+  width: 7rem;
+  font-size: 1rem;
+  background-color: var(--primary-colour);
+  border-color: var(--secondary-colour);
+  border-radius: 5px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.member form button:hover {
+  background-color: gray;
+}
