@@ -13,6 +13,7 @@ const checkAuthenticated = require('./middlewares/checkAuthenticated.mw');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
+const postRouter = require('./routes/post');
 
 // Connect to DB
 mongoose.set('strictQuery', false);
@@ -55,6 +56,7 @@ app.use((req, res, next) => {
 app.use(checkAuthenticated);
 
 app.use('/', indexRouter);
+app.use('/post', postRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
