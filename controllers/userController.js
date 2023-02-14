@@ -103,6 +103,13 @@ exports.logout_get = (req, res, next) => {
 // Display homepage on GET
 exports.homepage_get = (req, res) => {
   res.render('homepage', {
-    title: 'Members Only',
+    title: 'Members Only Homepage',
+  });
+};
+
+// Display member page on GET
+exports.member_get = (req, res) => {
+  res.render('member', {
+    title: 'Become a Member!',
   });
 };
