@@ -1,13 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <h1>Welcome <%= locals.currentUser.username%></h1>
-  <a href="/logout">Log Out</a>
+<%- include('layout'); -%>
+
+
+  <main class="homepage">
+    <form action="/post" method="post">
+      <p>Create a post!</p>
+      <div class="form-row">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+      </div>
+      <div class="form-row">
+        <label for="text">Description/Text</label>
+        <textarea name="text" id="text" cols="30" rows="10" placeholder="Type what you're thinking about!"></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="posts-container">
+      <h1>Posts</h1>
+      <% if (false) { %>
+      
+      <% } else { %>
+        <p class="be-the-first-msg">
+          No posts to show. Be the first to create a post!
+        </p>
+      <% } %>
+    </div>
+  </main>
+
+
+<!-- BELOW ARE THE LINES TO COMPLETE LAYOUT -->
 </body>
 </html>
