@@ -111,5 +111,33 @@ exports.homepage_get = (req, res) => {
 exports.member_get = (req, res) => {
   res.render('member', {
     title: 'Become a Member!',
+    errors: null,
   });
 };
+
+// Modify user member status on POST
+exports.member_post = [
+  body('code')
+    .trim()
+    .equals(process.env.MEMBER_PASS || process.env.DEV_MEMBER_PASS)
+    .escape()
+    .withMessage('Incorrect code'),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.render('member', {
+        title: 'Become a Member!',
+        errors: errors.array(),
+      });
+    }
+
+    return User.findOneAndUpdate({ _id: req.user._id }, { member: true }).exec(
+      (err) => {
+        if (err) return next(err);
+
+        return res.redirect('/homepage');
+      }
+    );
+  },
+];

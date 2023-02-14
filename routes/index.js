@@ -29,4 +29,7 @@ router.get('/homepage', userController.homepage_get);
 // GET member page
 router.get('/member', userController.member_get);
 
+// POST member form
+router.post('/member', userController.member_post);
+
 module.exports = router;
