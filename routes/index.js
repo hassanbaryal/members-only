@@ -26,4 +26,7 @@ router.get('/logout', userController.logout_get);
 // GET homepages
 router.get('/homepage', userController.homepage_get);
 
+// GET member page
+router.get('/member', userController.member_get);
+
 module.exports = router;
