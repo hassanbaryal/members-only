@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/layout.css">
+  <link rel="stylesheet" href="/stylesheets/homepage.css">
+  <title><%= title %></title>
+</head>
+<body>
+  <header>
+    <div class="banner">
+      <% if (locals.currentUser.member) { %>
+        <img src="/images/unlockedLock.svg" alt="Unlocked Lock">
+      <% } else { %>
+        <img src="/images/lockedLock.svg" alt="Unlocked Lock">
+      <% } %>
+      <span>Members Only</span>
+    </div>
+    <div class="nav-links">
+      <% if (!locals.currentUser.member) { %>
+        <a href="/member" style="font-weight: bold;">Become a Member!</a>  
+      <% } %>
+      <a href="/homepage">Home Page</a>
+      <a href="">Profile</a>
+      <a href="/logout" style="font-weight: bold;"> Log Out</a>
+      <!-- <p><%= locals.currentUser.username %></p> -->
+      </div>
+  </header>

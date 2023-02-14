@@ -1,0 +1,31 @@
+header {
+  height: 10vh;
+  padding: 1rem;
+  box-shadow: var(--secondary-colour) 0px 0px 0px 2px, var(--secondary-colour) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .banner {
+  font-size: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a {
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.nav-links p {
+  font-size: 2rem;
+}
