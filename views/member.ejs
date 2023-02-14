@@ -4,11 +4,19 @@
   <main class="member">
     <form action="" method="post">
       <p>Become a member!</p>
+      <span>Becoming a member allows you to: create posts and comments, see the authors of posts and comments, and see the profile of authors.</span>
       <div class="form-row">
         <label for="code">Code</label>
         <input type="text" name="code" id="code">
       </div>
       <button type="submit">Submit</button>
+      <% if (errors) { %>
+        <% for (const error of errors) { %>  
+          <ul>
+            <li><%= error.msg %></li>
+          </ul>
+        <% } %>
+      <% } %>
     </form>
   </main>
 
