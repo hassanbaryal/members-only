@@ -29,3 +29,37 @@ header .banner {
 .nav-links p {
   font-size: 2rem;
 }
+
+/* BELOW ARE STYLES FOR OTHER VIEWS */
+
+main {
+  width: clamp(280px, 40vw, 700px);
+  margin-top: 3rem;
+
+  display: flex;
+  flex-flow: column;
+  align-self: center;
+  gap: 3rem;
+}
+
+
+main form {
+  padding: 2rem;
+  font-size: 1.25rem;
+  /* border: 2px solid var(--secondary-colour); */
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  display: flex;
+  flex-flow: column;
+  gap: 1.5rem;
+}
+
+main form p {
+  font-size: 2rem;
+}
+
+main form .form-row {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+}
