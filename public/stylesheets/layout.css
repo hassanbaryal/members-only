@@ -39,6 +39,7 @@ ul {
 main {
   width: clamp(400px, 40vw, 700px);
   margin-top: 3rem;
+  padding-bottom: 5rem;
   display: flex;
   flex-flow: column;
   align-self: center;
