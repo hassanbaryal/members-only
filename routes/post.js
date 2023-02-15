@@ -1,12 +1,15 @@
 const express = require('express');
-const postCrontroller = require('../controllers/postController');
+const postController = require('../controllers/postController');
 
 const router = express.Router();
 
+// GET post page
+router.get('/:id', postController.postPage_get);
+
 // POST create post
-router.post('/', postCrontroller.createPost_post);
+router.post('/', postController.createPost_post);
 
 // POST delete post
-router.post('/delete/:id', postCrontroller.deletePost_post);
+router.post('/delete/:id', postController.deletePost_post);
 
 module.exports = router;
