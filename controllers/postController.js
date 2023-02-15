@@ -1,6 +1,7 @@
 const { body, validationResult } = require('express-validator');
 const Post = require('../models/Post');
 
+// Create post on POST
 exports.createPost_post = [
   body('title')
     .trim()
@@ -35,3 +36,12 @@ exports.createPost_post = [
     });
   },
 ];
+
+// Delete post on POST
+exports.deletePost_post = (req, res, next) => {
+  console.log(req.params.id, req.url);
+  Post.deleteOne({ _id: req.params.id }).exec((err) => {
+    if (err) return next(err);
+    return res.redirect('back');
+  });
+};
