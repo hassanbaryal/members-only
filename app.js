@@ -14,6 +14,7 @@ require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const postRouter = require('./routes/post');
+const commentRouter = require('./routes/comment');
 
 // Connect to DB
 mongoose.set('strictQuery', false);
@@ -57,7 +58,7 @@ app.use(checkAuthenticated);
 
 app.use('/', indexRouter);
 app.use('/post', postRouter);
-
+app.use('/comment', commentRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
