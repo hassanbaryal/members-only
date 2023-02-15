@@ -2,6 +2,7 @@ const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const Post = require('../models/Post');
 
 // Display login page on GET
 exports.login_get = (req, res) => {
@@ -101,12 +102,20 @@ exports.logout_get = (req, res, next) => {
 };
 
 // Display homepage on GET
-exports.homepage_get = (req, res) => {
-  res.render('homepage', {
-    title: 'Members Only Homepage',
-    errors: null,
-    submission: req.body,
-  });
+exports.homepage_get = (req, res, next) => {
+  Post.find({})
+    .populate('user')
+    .sort({ timeStamp: -1 })
+    .exec((err, posts) => {
+      if (err) return next(err);
+      console.log(posts);
+      return res.render('homepage', {
+        title: 'Members Only Homepage',
+        errors: null,
+        submission: req.body,
+        posts,
+      });
+    });
 };
 
 // Display member page on GET
