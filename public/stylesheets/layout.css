@@ -37,7 +37,7 @@ ul {
 }
 
 main {
-  width: clamp(280px, 40vw, 700px);
+  width: clamp(400px, 40vw, 700px);
   margin-top: 3rem;
 
   display: flex;
@@ -47,7 +47,7 @@ main {
 }
 
 
-main form {
+main>form {
   padding: 2rem;
   font-size: 1.25rem;
   /* border: 2px solid var(--secondary-colour); */
@@ -58,11 +58,11 @@ main form {
   gap: 1.5rem;
 }
 
-main form p {
+main>form p {
   font-size: 2rem;
 }
 
-main form .form-row {
+main>form .form-row {
   display: flex;
   flex-flow: column;
   gap: 0.5rem;
