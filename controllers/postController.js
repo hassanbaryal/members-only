@@ -17,11 +17,19 @@ exports.createPost_post = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.render('homepage', {
-        title: 'Members Only Homepage',
-        errors: errors.array(),
-        submission: req.body,
-      });
+      return Post.find({})
+        .populate('user')
+        .sort({ timeStamp: -1 })
+        .exec((err, posts) => {
+          if (err) return next(err);
+          console.log(posts);
+          return res.render('homepage', {
+            title: 'Members Only Homepage',
+            errors: errors.array(),
+            submission: req.body,
+            posts,
+          });
+        });
     }
 
     const post = new Post({
@@ -68,6 +76,7 @@ exports.postPage_get = (req, res, next) => {
         title: `${results.post.title}`,
         post: results.post,
         comments: results.comments,
+        errors: null,
         submission: null,
       });
     }
