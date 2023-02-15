@@ -1,5 +1,7 @@
+const async = require('async');
 const { body, validationResult } = require('express-validator');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 // Create post on POST
 exports.createPost_post = [
@@ -44,4 +46,30 @@ exports.deletePost_post = (req, res, next) => {
     if (err) return next(err);
     return res.redirect('back');
   });
+};
+
+// Display post page on GET
+exports.postPage_get = (req, res, next) => {
+  async.parallel(
+    {
+      post(cb) {
+        Post.findOne({ _id: req.params.id }).populate('user').exec(cb);
+      },
+      comments(cb) {
+        Comment.find({ post: req.params.id })
+          .populate('user')
+          .populate('likes')
+          .exec(cb);
+      },
+    },
+    (err, results) => {
+      if (err) return next(err);
+      return res.render('postPage', {
+        title: `${results.post.title}`,
+        post: results.post,
+        comments: results.comments,
+        submission: null,
+      });
+    }
+  );
 };
