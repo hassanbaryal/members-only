@@ -1,0 +1,50 @@
+.postPage .post-info .title {
+  white-space: normal;
+  text-overflow: unset;
+  overflow: unset;
+}
+
+.postPage .post .text {
+  white-space: normal;
+  text-overflow: unset;
+  overflow: unset;
+}
+
+
+/* CREATE COMMENT FORM */
+.postPage>form textarea {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: var(--primary-colour);
+  border-color: var(--secondary-colour);
+  border-width: 2px;
+  resize: none;
+}
+
+.postPage>form button {
+  height: 2.5rem;
+  width: 7rem;
+  font-size: 1rem;
+  background-color: var(--primary-colour);
+  border-color: var(--secondary-colour);
+  border-radius: 5px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.postPage>form button:hover {
+  background-color: gray;
+}
+
+/* COMMENTS CONTAINER */
+
+.postPage .comments-container {
+  display: flex;
+  flex-flow: column;
+  gap: 2rem;
+}
+
+.postPage .comments-container>h1 {
+  font-weight: 400;
+  font-size: 3rem;
+}

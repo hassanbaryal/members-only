@@ -1,0 +1,112 @@
+<%- include('layout'); -%>
+
+
+  <main class="postPage">
+
+
+    <div class="post">
+
+      <div class="post-info">
+        <div class="title">
+          <%= post.title %>
+        </div>
+        <div class="author">
+          <% if (locals.currentUser.member) { %>
+            <a href=<%= post.user.url %> style="color: inherit;">
+              <strong style="color: inherit;">Posted By:</strong>
+              <span style="color: inherit;"><%= post.user.username %></span>
+            </a>
+          <% } else { %>
+            <a href="/member" style="color: inherit;">
+              Anonymous User
+            </a>
+          <% } %>
+        </div>
+        <div class="date">
+          <%= post.formattedTimeStamp %>
+        </div>
+      </div>
+      
+      <div class="text">
+        <%= post.text %>
+      </div>
+      
+      <div class="icons">
+        <div class="comments-icon">
+          <span>0</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div class="likes-icon" data-action="/like/post/<%= post._id %>">
+          <span><%= post.likes.length %></span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+      </div>
+      <% if (JSON.stringify(locals.currentUser._id) === JSON.stringify(post.user._id)) { %>
+        <form action="/post/delete/<%= post._id %>" method="post">
+          <input type="hidden" name="userid" required value=<%= post.user._id %>>
+          <button class="delete-btn" type="submit">
+            <img src="/images/trash-2.svg" alt="Delete Icon">
+          </button>
+        </form>
+      <% } %>
+      
+    </div>
+
+    <form action="/comment" method="post">
+      <p>Share your thoughts, create a comment!</p>
+      <div class="form-row">
+        <textarea name="" id="text" cols="30" rows="10" placeholder="Type your comment here!" maxlength="1000"></textarea>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="comments-container">
+      <h1>Comments <span>(<%= comments.length %>)</span></h1>
+      <% if (comments.length > 0) { %>
+        <% for (const comment of comments) { %>
+          <div class="comment">
+            <div class="comment-info">
+              <% if (locals.currentUser.member) { %>
+                <a href="<% comment.user.url %>" class="comment-author">
+                  <%= comment.user.username %>
+                </a>
+              <% } else { %>
+                <a href="/member" class="comment-author">
+                  Anonymous User
+                </a>
+              <% } %>
+              <p class="comment-date">
+                <%= comment.formattedTimeStamp %>
+              </p>
+            </div>
+            <div class="comment-text">
+              <%= comment.text %>
+            </div>
+            <div class="icons">
+              <div class="likes-icon" data-action="/like/comment/<%= comment._id %>">
+                <span><%= comment.likes.length %></span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </div>
+            </div>
+
+            <% if (JSON.stringify(locals.currentUser._id) === JSON.stringify(comment.user._id)) { %>
+              <form action="/comment/delete/<%= comment._id %>" method="post">
+                <input type="hidden" name="userid" required value=<%= comment.user._id %>>
+                <button class="delete-btn" type="submit">
+                  <img src="/images/trash-2.svg" alt="Delete Icon">
+                </button>
+              </form>
+            <% } %>
+          </div>
+        <% } %>
+      <% } else { %>
+        <p>No comments to show. Be the first!</p>
+      <% } %>
+    </div>
+
+  </main>
+
+
+<!-- BELOW ARE THE LINES TO COMPLETE LAYOUT -->
+</body>
+</html>
