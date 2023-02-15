@@ -5,16 +5,14 @@ exports.createPost_post = [
   body('title')
     .trim()
     .isLength({ min: 1, max: 100 })
-    .escape()
     .withMessage('Title is required (max 100 characters)'),
   body('text')
     .trim()
     .isLength({ min: 1, max: 1000 })
-    .escape()
     .withMessage('Description/Text is required (max 1000 characters)'),
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body.title, req.body.text);
+
     if (!errors.isEmpty()) {
       return res.render('homepage', {
         title: 'Members Only Homepage',
