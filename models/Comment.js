@@ -8,6 +8,7 @@ const commentSchema = new Schema({
   timeStamp: { type: Date, default: Date.now },
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   post: { type: Schema.Types.ObjectId, ref: 'Post' },
+  likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });
 
 commentSchema.virtual('formattedTimeStamp').get(function () {
