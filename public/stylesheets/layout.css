@@ -69,7 +69,7 @@ main>form .form-row {
 }
 
 
-/* STLYES FOR POSTS */
+/* STLYES FOR POSTS AND A BIT OF COMMENTS */
 
 .post {
   position: relative;
@@ -123,19 +123,24 @@ main>form .form-row {
 
 .post .comments-icon,
 .post .likes-icon {
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.post form {
+.likes-icon svg {
+  cursor: pointer;
+}
+
+.post form,
+.comment form {
   position: absolute;
   top: 8px;
   right: 8px;
 }
 
-.post .delete-btn {
+.post .delete-btn,
+.comment .delete-btn {
   height: 1.5rem;
   width: 2.5rem;
   background-color: var(--red);
@@ -144,6 +149,7 @@ main>form .form-row {
   cursor: pointer;
 }
 
-.post .delete-btn:hover {
+.post .delete-btn:hover,
+.comment .delete-btn:hover {
   background-color: var(--dark-red);
 }
