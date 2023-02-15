@@ -3,15 +3,15 @@
 
   <main class="homepage">
     <% if (locals.currentUser.member) { %>
-      <form action="/post" method="post">
+      <form class="create-post-form" action="/post" method="post">
         <p>Create a post!</p>
         <div class="form-row">
           <label for="title">Title</label>
-          <input type="text" name="title" id="title" value="<%- submission.title -%>">
+          <input type="text" name="title" id="title" value="<%- submission.title -%>" maxlength="100">
         </div>
         <div class="form-row">
           <label for="text">Description/Text</label>
-          <textarea name="text" id="text" cols="30" rows="10" placeholder="Type what you're thinking about!"><%= submission.text %></textarea>
+          <textarea name="text" id="text" cols="30" rows="10" placeholder="Type what you're thinking about!" maxlength="1000"><%= submission.text %></textarea>
         </div>
         <button type="submit">Submit</button>
         <% if (errors) { %>
@@ -30,8 +30,55 @@
 
     <div class="posts-container">
       <h1>Posts</h1>
-      <% if (false) { %>
-      
+      <% if (posts.length > 0) { %>
+        <% for (const post of posts) { %>
+          <div class="post homepage-post">
+
+            <div class="post-info">
+              <div class="title">
+                <a href=<%= post.url %>>
+                  <%= post.title %>
+                </a>
+              </div>
+              <div class="author">
+                <% if (locals.currentUser.member) { %>
+                  <a href=<%= post.user.url %> style="color: inherit;">
+                    <strong style="color: inherit;">Posted By:</strong>
+                    <span style="color: inherit;"><%= post.user.username %></span>
+                  </a>
+                <% } else { %>
+                  <a href="/member">
+                    Anonymous User
+                  </a>
+                <% } %>
+              </div>
+              <div class="date">
+                <%= post.formattedTimeStamp %>
+              </div>
+            </div>
+            
+            <div class="text">
+              <%= post.text %>
+            </div>
+            
+            <div class="icons">
+              <a href="<%= post.url %>" class="comments-icon">
+                <span>0</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </a>
+              <div class="likes-icon" data-action="/like/post/<%= post._id %>">
+                <span><%= post.likes.length %></span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+              </div>
+            </div>
+            <form action="/post/delete/<%= post._id %>" method="post">
+              <input type="hidden" name="userid" required value=<%= post.user._id %>>
+              <button class="delete-btn" type="submit">
+                <img src="/images/trash-2.svg" alt="Delete Icon">
+              </button>
+            </form>
+          </div>
+        <% } %>
       <% } else { %>
         <p class="be-the-first-msg">
           No posts to show. Be the first to create a post!
