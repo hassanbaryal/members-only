@@ -33,7 +33,7 @@
       
       <div class="icons">
         <div class="comments-icon">
-          <span>0</span>
+          <span><%= comments.length %></span>
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         </div>
         <div class="likes-icon" data-action="/like/post/<%= post._id %>">
@@ -53,12 +53,19 @@
     </div>
 
     <% if (locals.currentUser.member) { %>
-      <form action="/comment" method="post">
+      <form action="/comment/create/<%= post._id %>" method="post">
         <p>Share your thoughts, create a comment!</p>
         <div class="form-row">
-          <textarea name="" id="text" cols="30" rows="10" placeholder="Type your comment here!" maxlength="1000"></textarea>
+          <textarea name="text" id="text" cols="30" rows="10" placeholder="Type your comment here!" maxlength="1000"></textarea>
         </div>
         <button type="submit">Submit</button>
+        <% if (errors) { %>
+          <% for (const error of errors) {  %>
+            <ul>
+              <li><%= error.msg %></li>
+            </ul>
+          <% } %>
+        <% } %>
       </form>
     <% } else { %>
       <div>
@@ -73,7 +80,7 @@
           <div class="comment">
             <div class="comment-info">
               <% if (locals.currentUser.member) { %>
-                <a href="<% comment.user.url %>" class="comment-author">
+                <a href="<%= comment.user.url %>" class="comment-author">
                   <%= comment.user.username %>
                 </a>
               <% } else { %>
