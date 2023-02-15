@@ -35,8 +35,9 @@ exports.signup_post = [
   body('username')
     .trim()
     .isLength({ min: 1 })
+    .isAlphanumeric()
     .escape()
-    .withMessage('Username is required'),
+    .withMessage('Username is required (letters and numbers only)'),
   body('password')
     .trim()
     .isLength({ min: 1 })
