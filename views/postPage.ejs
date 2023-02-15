@@ -52,13 +52,19 @@
       
     </div>
 
-    <form action="/comment" method="post">
-      <p>Share your thoughts, create a comment!</p>
-      <div class="form-row">
-        <textarea name="" id="text" cols="30" rows="10" placeholder="Type your comment here!" maxlength="1000"></textarea>
+    <% if (locals.currentUser.member) { %>
+      <form action="/comment" method="post">
+        <p>Share your thoughts, create a comment!</p>
+        <div class="form-row">
+          <textarea name="" id="text" cols="30" rows="10" placeholder="Type your comment here!" maxlength="1000"></textarea>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    <% } else { %>
+      <div>
+        <p>You are not a member. To create comments, posts and view the authors, please <a href="/member">become a member!</a></p>
       </div>
-      <button type="submit">Submit</button>
-    </form>
+    <% } %>
 
     <div class="comments-container">
       <h1>Comments <span>(<%= comments.length %>)</span></h1>
