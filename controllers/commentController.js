@@ -53,3 +53,13 @@ exports.createComment_post = [
     );
   },
 ];
+
+exports.deleteComment_post = (req, res, next) => {
+  Comment.findOne({ _id: req.params.id }).exec((err, comment) => {
+    if (err) return next(err);
+    return comment.delete((error) => {
+      if (error) return next()
+      return res.redirect(`/post/${comment.post}`);
+    })
+  });
+};
