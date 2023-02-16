@@ -211,7 +211,6 @@ exports.profileComments_get = (req, res, next) => {
 // Display profile page of another user
 exports.profileUser_get = (req, res, next) => {
   console.log(req.params.id === req.user._id.toString());
-  // console.log(req.user._id)
   if (req.params.id === req.user._id.toString())
     return res.redirect('/profile/');
   return async.parallel(
@@ -241,3 +240,30 @@ exports.profileUser_get = (req, res, next) => {
     }
   );
 };
+
+// Display profile page (comments) of another user on GET
+exports.profileUserComments_get = (req, res, next) =>
+  async.parallel(
+    {
+      user(cb) {
+        User.findOne({ _id: req.params.id }).exec(cb);
+      },
+      comments(cb) {
+        Comment.find({ user: req.params.id })
+          .populate('post')
+          .populate('user')
+          .sort({ timeStamp: -1 })
+          .exec(cb);
+      },
+    },
+    (error, results) => {
+      if (error) return next(error);
+      return res.render('profile', {
+        title: 'Profile Page',
+        user: null,
+        commentsPage: true,
+        posts: [],
+        comments: results.comments,
+      });
+    }
+  );
