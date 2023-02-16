@@ -13,8 +13,8 @@
     
 
     <div class="profile-nav">
-      <a href="">All Posts</a>
-      <a href="comments/">All Comments</a>
+      <a href="/profile/">All Posts</a>
+      <a href="comments">All Comments</a>
     </div>
   </div>
 
@@ -73,9 +73,45 @@
         </div>
       <% } %>
     <% } else { %>
-      <% %>
+      <% for (const comment of comments) { %>
+        <div class="comment">
+          <div class="comment-info">
+            <% if (locals.currentUser.member) { %>
+              <a href="<%= comment.user.url %>" class="comment-author">
+                <%= comment.user.username %>
+              </a>
+            <% } else { %>
+              <a href="/member" class="comment-author">
+                Anonymous User
+              </a>
+            <% } %>
+            <p class="comment-date">
+              <%= comment.formattedTimeStamp %>
+            </p>
+          </div>
+          <div class="comment-text">
+            <%= comment.text %>
+          </div>
+          <div class="icons">
+            <a href="<%= comment.post.url %>" class="link-icon">
+              <img src="/images/arrow-up-right.svg" alt="Arrow svg">
+            </a>
+            <div class="likes-icon" data-action="/like/comment/<%= comment._id %>">
+              <span><%= comment.likes.length %></span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+          </div>
 
-      <% %>
+          <% if (JSON.stringify(locals.currentUser._id) === JSON.stringify(comment.user._id)) { %>
+            <form action="/comment/delete/<%= comment._id %>" method="post">
+              <input type="hidden" name="userid" required value=<%= comment.user._id %>>
+              <button class="delete-btn" type="submit">
+                <img src="/images/trash-2.svg" alt="Delete Icon">
+              </button>
+            </form>
+          <% } %>
+        </div>
+      <% } %>
     <% } %>
   </main>
 
