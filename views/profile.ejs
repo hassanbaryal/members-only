@@ -81,15 +81,9 @@
       <% for (const comment of comments) { %>
         <div class="comment">
           <div class="comment-info">
-            <% if (locals.currentUser.member) { %>
-              <a href="<%= comment.user.url %>" class="comment-author">
-                <%= comment.user.username %>
-              </a>
-            <% } else { %>
-              <a href="/member" class="comment-author">
-                Anonymous User
-              </a>
-            <% } %>
+            <p class="comment-author">
+              <%= comment.user.username %>
+            </p>
             <p class="comment-date">
               <%= comment.formattedTimeStamp %>
             </p>
