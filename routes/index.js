@@ -38,4 +38,7 @@ router.get('/profile/', userController.profile_get);
 // GET profile page (comments)
 router.get('/profile/comments', userController.profileComments_get);
 
+// GET profile page of another user
+router.get('/profile/:id/', userController.profileUser_get);
+
 module.exports = router;

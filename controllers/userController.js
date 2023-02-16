@@ -195,6 +195,7 @@ exports.profileComments_get = (req, res, next) => {
   Comment.find({ user: req.user._id })
     .populate('post')
     .populate('user')
+    .sort({ timeStamp: -1 })
     .exec((err, comments) => {
       if (err) return next(err);
       return res.render('profile', {
@@ -205,4 +206,38 @@ exports.profileComments_get = (req, res, next) => {
         comments,
       });
     });
+};
+
+// Display profile page of another user
+exports.profileUser_get = (req, res, next) => {
+  console.log(req.params.id === req.user._id.toString());
+  // console.log(req.user._id)
+  if (req.params.id === req.user._id.toString())
+    return res.redirect('/profile/');
+  return async.parallel(
+    {
+      user(cb) {
+        User.findOne({ _id: req.params.id }).exec(cb);
+      },
+      posts(cb) {
+        Post.find({ user: req.params.id })
+          .populate('user')
+          .sort({ timeStamp: -1 })
+          .exec(cb);
+      },
+      comments(cb) {
+        Comment.find({}, 'post').exec(cb);
+      },
+    },
+    (error, results) => {
+      if (error) return next(error);
+      return res.render('profile', {
+        title: 'Profile Page',
+        user: results.user,
+        commentsPage: false,
+        posts: results.posts,
+        comments: results.comments,
+      });
+    }
+  );
 };
