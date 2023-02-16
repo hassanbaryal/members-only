@@ -14,3 +14,8 @@
   display: flex;
   gap: 2rem;
 }
+
+.comment .icons {
+  gap: 1rem;
+  align-items: center;
+}
