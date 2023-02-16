@@ -56,10 +56,14 @@ exports.createPost_post = [
 
 // Delete post on POST
 exports.deletePost_post = (req, res, next) => {
-  Post.deleteOne({ _id: req.params.id }).exec((err) => {
+  Comment.deleteMany({ post: req.params.id }).exec((err) => {
     if (err) return next(err);
-    return res.redirect('/profile/');
-  });
+    return Post.deleteOne({ _id: req.params.id }).exec((error) => {
+      if (error) return next(error);
+      return res.redirect('/profile/');
+    });
+  })
+  
 };
 
 // Display post page on GET
