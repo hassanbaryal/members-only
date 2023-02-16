@@ -162,3 +162,30 @@ exports.member_post = [
     );
   },
 ];
+
+// Display profile page on GET
+exports.profile_get = (req, res, next) => {
+  async.parallel(
+    {
+      posts(cb) {
+        Post.find({ user: req.user._id })
+          .populate('user')
+          .sort({ timeStamp: -1 })
+          .exec(cb);
+      },
+      comments(cb) {
+        Comment.find({}, 'post').exec(cb);
+      },
+    },
+    (error, results) => {
+      if (error) return next(error);
+      return res.render('profile', {
+        title: 'Profile Page',
+        user: null,
+        commentsPage: false,
+        posts: results.posts,
+        comments: results.comments,
+      });
+    }
+  );
+};

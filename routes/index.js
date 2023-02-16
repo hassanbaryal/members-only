@@ -32,4 +32,7 @@ router.get('/member', userController.member_get);
 // POST member form
 router.post('/member', userController.member_post);
 
+// GET profile page
+router.get('/profile/', userController.profile_get);
+
 module.exports = router;
