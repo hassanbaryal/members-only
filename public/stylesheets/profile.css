@@ -1,0 +1,16 @@
+.profile-header {
+  padding: 2rem;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-author {
+  font-size: 3rem;
+}
+
+.profile-nav {
+  display: flex;
+  gap: 2rem;
+}

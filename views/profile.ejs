@@ -1,0 +1,85 @@
+<%- include('layout'); -%>
+
+  <div class="profile-header">
+    <% if (!user) { %>
+      <h1 class="profile-author">
+        Welcome, <span><%= locals.currentUser.username %></span>
+      </h1>
+    <% } else { %>
+      <h1 class="profile-author">
+        <span><%= user.username %></span>&#39;s Profile
+      </h1>
+    <% } %>
+    
+
+    <div class="profile-nav">
+      <a href="">All Posts</a>
+      <a href="comments/">All Comments</a>
+    </div>
+  </div>
+
+  <main class="profile">
+    <% if (!commentsPage) { %>
+      <% for (const post of posts) { %>
+        <div class="post">
+
+          <div class="post-info">
+            <div class="title">
+              <a href=<%= post.url %>>
+                <%= post.title %>
+              </a>
+            </div>
+            <div class="author">
+              <% if (locals.currentUser.member) { %>
+                <a href="<%= post.user.url %>" style="color: inherit;">
+                  <strong style="color: inherit;">Posted By:</strong>
+                  <span style="color: inherit;"><%= post.user.username %></span>
+                </a>
+              <% } else { %>
+                <a href="/member" style="color: inherit;">
+                  Anonymous User
+                </a>
+              <% } %>
+            </div>
+            <div class="date">
+              <%= post.formattedTimeStamp %>
+            </div>
+          </div>
+          
+          <div class="text">
+            <%= post.text %>
+          </div>
+          
+          <div class="icons">
+            <a href="<%= post.url %>" class="comments-icon">
+              <span>
+                <%= comments.filter(comment => JSON.stringify(comment.post) === JSON.stringify(post._id)).length %>
+              </span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </a>
+            <div class="likes-icon" data-action="/like/post/<%= post._id %>">
+              <span><%= post.likes.length %></span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
+          </div>
+          <% if (JSON.stringify(locals.currentUser._id) === JSON.stringify(post.user._id)) { %>
+            <form action="/post/delete/<%= post._id %>" method="post">
+              <input type="hidden" name="userid" required value=<%= post.user._id %>>
+              <button class="delete-btn" type="submit">
+                <img src="/images/trash-2.svg" alt="Delete Icon">
+              </button>
+            </form>
+          <% } %>
+        </div>
+      <% } %>
+    <% } else { %>
+      <% %>
+
+      <% %>
+    <% } %>
+  </main>
+
+
+<!-- BELOW ARE THE LINES TO COMPLETE LAYOUT -->
+</body>
+</html>
