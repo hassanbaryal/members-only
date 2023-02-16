@@ -27,7 +27,11 @@
         <a href="/member" style="font-weight: bold;">Become a Member!</a>  
       <% } %>
       <a href="/homepage">Home Page</a>
-      <a href="/profile/">Profile</a>
+      <% if (locals.currentUser.member) { %>
+        <a href="/profile/">Profile</a>
+      <% } else { %>
+        <a href="/member">Profile</a>
+      <% } %>
       <a href="/logout" style="font-weight: bold;"> Log Out</a>
       <!-- <p><%= locals.currentUser.username %></p> -->
       </div>
