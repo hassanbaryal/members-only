@@ -1,8 +1,10 @@
 const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const async = require('async');
 const User = require('../models/User');
 const Post = require('../models/Post');
+const Comment = require('../models/Comment');
 
 // Display login page on GET
 exports.login_get = (req, res) => {
@@ -104,19 +106,26 @@ exports.logout_get = (req, res, next) => {
 
 // Display homepage on GET
 exports.homepage_get = (req, res, next) => {
-  Post.find({})
-    .populate('user')
-    .sort({ timeStamp: -1 })
-    .exec((err, posts) => {
+  async.parallel(
+    {
+      posts(cb) {
+        Post.find({}).populate('user').sort({ timeStamp: -1 }).exec(cb);
+      },
+      comments(cb) {
+        Comment.find({}).exec(cb);
+      },
+    },
+    (err, results) => {
       if (err) return next(err);
-
       return res.render('homepage', {
         title: 'Members Only Homepage',
         errors: null,
         submission: req.body,
-        posts,
+        posts: results.posts,
+        comments: results.comments,
       });
-    });
+    }
+  );
 };
 
 // Display member page on GET

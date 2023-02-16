@@ -17,19 +17,26 @@ exports.createPost_post = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return Post.find({})
-        .populate('user')
-        .sort({ timeStamp: -1 })
-        .exec((err, posts) => {
+      return async.parallel(
+        {
+          posts(cb) {
+            Post.find({}).populate('user').sort({ timeStamp: -1 }).exec(cb);
+          },
+          comments(cb) {
+            Comment.find({}).exec(cb);
+          },
+        },
+        (err, results) => {
           if (err) return next(err);
-          console.log(posts);
           return res.render('homepage', {
             title: 'Members Only Homepage',
             errors: errors.array(),
             submission: req.body,
-            posts,
+            posts: results.posts,
+            comments: results.comments,
           });
-        });
+        }
+      );
     }
 
     const post = new Post({
