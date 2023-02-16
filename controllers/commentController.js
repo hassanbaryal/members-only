@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
+// Create comment on POST
 exports.createComment_post = [
   body('text')
     .trim()
@@ -54,6 +55,7 @@ exports.createComment_post = [
   },
 ];
 
+// Delete comment on post
 exports.deleteComment_post = (req, res, next) => {
   Comment.findOne({ _id: req.params.id }).exec((err, comment) => {
     if (err) return next(err);
