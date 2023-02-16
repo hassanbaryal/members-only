@@ -35,4 +35,7 @@ router.post('/member', userController.member_post);
 // GET profile page
 router.get('/profile/', userController.profile_get);
 
+// GET profile page (comments)
+router.get('/profile/comments', userController.profileComments_get);
+
 module.exports = router;

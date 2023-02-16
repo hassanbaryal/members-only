@@ -189,3 +189,20 @@ exports.profile_get = (req, res, next) => {
     }
   );
 };
+
+// Display profile page with all comments on GET
+exports.profileComments_get = (req, res, next) => {
+  Comment.find({ user: req.user._id })
+    .populate('post')
+    .populate('user')
+    .exec((err, comments) => {
+      if (err) return next(err);
+      return res.render('profile', {
+        title: 'Profile Page',
+        user: null,
+        commentsPage: true,
+        posts: [],
+        comments,
+      });
+    });
+};
