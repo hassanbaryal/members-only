@@ -25,6 +25,11 @@
 
   <main class="profile">
     <% if (!commentsPage) { %>
+      <h1>Posts (<%= posts.length %>)</h1>
+    <% } else { %>
+      <h1>Comments (<%= comments.length %>)</h1>
+    <% } %>
+    <% if (!commentsPage) { %>
       <% for (const post of posts) { %>
         <div class="post">
 
