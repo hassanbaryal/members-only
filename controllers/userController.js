@@ -109,7 +109,7 @@ exports.homepage_get = (req, res, next) => {
     .sort({ timeStamp: -1 })
     .exec((err, posts) => {
       if (err) return next(err);
-      console.log(posts);
+
       return res.render('homepage', {
         title: 'Members Only Homepage',
         errors: null,
