@@ -14,7 +14,7 @@
           <% if (locals.currentUser.member) { %>
             <a href=<%= post.user.url %> style="color: inherit;">
               <strong style="color: inherit;">Posted By:</strong>
-              <span style="color: inherit;"><%= post.user.username %></span>
+              <span style="color: inherit; text-decoration: underline;"><%= post.user.username %></span>
             </a>
           <% } else { %>
             <a href="/member" style="color: inherit;">
@@ -86,7 +86,7 @@
           <div class="comment">
             <div class="comment-info">
               <% if (locals.currentUser.member) { %>
-                <a href="<%= comment.user.url %>" class="comment-author">
+                <a href="<%= comment.user.url %>" class="comment-author" style="text-decoration: underline;">
                   <%= comment.user.username %>
                 </a>
               <% } else { %>
