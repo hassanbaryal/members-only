@@ -14,11 +14,22 @@
 
     <div class="profile-nav">
       <% if (!user) { %>
-        <a href="/profile/">All Posts</a>
-        <a href="comments/">All Comments</a>
+        <% if (commentsPage) { %>
+          <a href="/profile/">All Posts</a>
+          <a href="">All Comments</a>
+        <% } else { %>
+          <a href="/profile/">All Posts</a>
+          <a href="comments/">All Comments</a>
+        <% } %>
       <% } else { %>
-        <a href="<%= user.url %>">All Posts</a>
-        <a href="<%= user.url %>/comments">All Comments</a>
+        
+        <% if (commentsPage) { %>
+          <a href="<%= user.url %>">All Posts</a>
+          <a href="">All Comments</a>
+        <% } else { %>
+          <a href="<%= user.url %>">All Posts</a>
+          <a href="<%= user.url %>/comments">All Comments</a>
+        <% } %>
       <% } %>
     </div>
   </div>

@@ -260,7 +260,7 @@ exports.profileUserComments_get = (req, res, next) =>
       if (error) return next(error);
       return res.render('profile', {
         title: 'Profile Page',
-        user: null,
+        user: results.user,
         commentsPage: true,
         posts: [],
         comments: results.comments,
