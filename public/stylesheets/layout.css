@@ -195,3 +195,14 @@ main>form .form-row {
   align-items: center;
   gap: 5px;
 }
+
+/* STYLING FOR HEART ICON */
+.feather-heart {
+  stroke: grey;
+  fill: none;
+}
+
+.feather-heart.liked {
+  stroke: var(--red);
+  fill: var(--red);
+}
