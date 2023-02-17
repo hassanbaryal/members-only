@@ -10,14 +10,11 @@ function handleDom(target, sibling) {
   }
   // eslint-disable-next-line no-param-reassign
   sibling.textContent = likeNumber;
-  console.log('RUNS 1');
   target.classList.toggle('liked');
-  console.log('RUNS 2');
 }
 
 // Sends request to server
 async function sendRequestToServer(target, parent, sibling, url) {
-  console.log(target, parent, sibling, url);
   try {
     await fetch(url, { method: 'POST' });
     handleDom(target, sibling);
