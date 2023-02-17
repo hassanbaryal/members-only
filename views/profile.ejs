@@ -16,18 +16,18 @@
       <% if (!user) { %>
         <% if (commentsPage) { %>
           <a href="/profile/">All Posts</a>
-          <a href="">All Comments</a>
+          <a href="" style="font-weight: bold; cursor: default; pointer-events: none;">All Comments</a>
         <% } else { %>
-          <a href="/profile/">All Posts</a>
+          <a href="/profile/" style="font-weight: bold; cursor: default; pointer-events: none;">All Posts</a>
           <a href="comments/">All Comments</a>
         <% } %>
       <% } else { %>
         
         <% if (commentsPage) { %>
           <a href="<%= user.url %>">All Posts</a>
-          <a href="">All Comments</a>
+          <a href="" style="font-weight: bold; cursor: default; pointer-events: none;">All Comments</a>
         <% } else { %>
-          <a href="<%= user.url %>">All Posts</a>
+          <a href="<%= user.url %>" style="font-weight: bold; cursor: default; pointer-events: none;">All Posts</a>
           <a href="<%= user.url %>/comments">All Comments</a>
         <% } %>
       <% } %>
