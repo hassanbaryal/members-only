@@ -1,5 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/userController');
+const postController = require('../controllers/postController');
 
 const router = express.Router();
 
@@ -43,5 +44,7 @@ router.get('/profile/:id/', userController.profileUser_get);
 
 // GET profile page (comments) of another user
 router.get('/profile/:id/comments', userController.profileUserComments_get);
+
+router.post('/like/post/:id', postController.likePost_post);
 
 module.exports = router;

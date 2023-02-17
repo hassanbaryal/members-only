@@ -62,8 +62,7 @@ exports.deletePost_post = (req, res, next) => {
       if (error) return next(error);
       return res.redirect('/profile/');
     });
-  })
-  
+  });
 };
 
 // Display post page on GET
@@ -91,4 +90,26 @@ exports.postPage_get = (req, res, next) => {
       });
     }
   );
+};
+
+// Like post on POST
+exports.likePost_post = (req, res, next) => {
+  Post.findOne({ _id: req.params.id }).exec((err, post) => {
+    if (err) return next(err);
+    console.log(post);
+    console.log(post.likes);
+    if (!post.likes.includes(req.user._id)) {
+      post.likes.push(req.user._id);
+      return post.save((error) => {
+        if (err) return next(error);
+        return res.send('Successfully updated (added)!');
+      });
+    }
+    const index = post.likes.findIndex((id) => id === req.user._id);
+    post.likes.splice(index, 1);
+    return post.save((error) => {
+      if (err) return next(error);
+      return res.send('Successfully updated (removed)!');
+    });
+  });
 };
