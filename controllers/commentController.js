@@ -65,3 +65,25 @@ exports.deleteComment_post = (req, res, next) => {
     });
   });
 };
+
+// Like comment on POST
+exports.likeComment_post = (req, res, next) => {
+  Comment.findOne({ _id: req.params.id }).exec((err, comment) => {
+    if (err) return next(err);
+    console.log(comment);
+    console.log(comment.likes);
+    if (!comment.likes.includes(req.user._id)) {
+      comment.likes.push(req.user._id);
+      return comment.save((error) => {
+        if (err) return next(error);
+        return res.send('Successfully updated (added)!');
+      });
+    }
+    const index = comment.likes.findIndex((id) => id === req.user._id);
+    comment.likes.splice(index, 1);
+    return comment.save((error) => {
+      if (err) return next(error);
+      return res.send('Successfully updated (removed)!');
+    });
+  });
+};
