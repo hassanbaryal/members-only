@@ -96,8 +96,6 @@ exports.postPage_get = (req, res, next) => {
 exports.likePost_post = (req, res, next) => {
   Post.findOne({ _id: req.params.id }).exec((err, post) => {
     if (err) return next(err);
-    console.log(post);
-    console.log(post.likes);
     if (!post.likes.includes(req.user._id)) {
       post.likes.push(req.user._id);
       return post.save((error) => {

@@ -70,8 +70,6 @@ exports.deleteComment_post = (req, res, next) => {
 exports.likeComment_post = (req, res, next) => {
   Comment.findOne({ _id: req.params.id }).exec((err, comment) => {
     if (err) return next(err);
-    console.log(comment);
-    console.log(comment.likes);
     if (!comment.likes.includes(req.user._id)) {
       comment.likes.push(req.user._id);
       return comment.save((error) => {
