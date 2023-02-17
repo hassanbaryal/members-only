@@ -7,8 +7,9 @@ header {
   align-items: center;
 }
 
-header .banner {
+header .banner a {
   font-size: 2.5rem;
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
