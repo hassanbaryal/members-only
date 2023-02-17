@@ -75,7 +75,6 @@ exports.postPage_get = (req, res, next) => {
       comments(cb) {
         Comment.find({ post: req.params.id })
           .populate('user')
-          .populate('likes')
           .exec(cb);
       },
     },
